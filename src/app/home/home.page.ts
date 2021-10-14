@@ -1,3 +1,7 @@
+// To Do:
+// You cannot scroll on mobile
+// You cannot hover over a cell to see the possibles on mobile
+
 import { Component } from '@angular/core';
 
 @Component({
