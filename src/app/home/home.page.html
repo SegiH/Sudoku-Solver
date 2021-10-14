@@ -1,0 +1,24 @@
+<ion-header [translucent]="true">
+     <ion-toolbar>
+          <ion-list>
+               <ion-item>
+                    <ion-title>Sudoku Solver</ion-title>
+                    <span class="demoModeDiv">
+                         Demo<ion-toggle [(ngModel)]="demoMode" (ionChange)="demoModeChanged()"></ion-toggle>
+                    </span>
+               </ion-item>
+          </ion-list>     
+     </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+     <table>
+          <tr *ngFor="let row of numSequence(9); trackBy: trackByFn; let rowIndex = index" [ngClass]="{'bottomwall' : (rowIndex+1) % 3 == 0 && rowIndex < 8}">
+               <td *ngFor="let column of numSequence(9); trackBy: trackByFn; let columnIndex = index" [ngClass]="{'rightwall' : (columnIndex+1) % 3 == 0 && columnIndex < 8}">
+                    <ion-input [(ngModel)]="gridValues[rowIndex][columnIndex][0]" [ngClass]="getItemClass(rowIndex,columnIndex)" [value]="gridValues[rowIndex][columnIndex][0]" (ionChange)="keyPress($event)" inputMode="numeric" maxlength="1" size="1"></ion-input>
+               </td>
+        </tr>
+     </table>
+
+     <ion-button class="goButton" color="primary" (click)="analyzeGrid()">Analyze</ion-button>
+</ion-content>

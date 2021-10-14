@@ -1,0 +1,7 @@
+{
+  "name": "sudoku-solver",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}

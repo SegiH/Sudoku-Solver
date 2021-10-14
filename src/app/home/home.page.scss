@@ -1,0 +1,31 @@
+.demoModeDiv {
+     display: inherit;
+}
+
+table {
+   width: 300px;
+   border-width: 1px;
+   border-style: solid;
+}
+
+tr {  
+  height: 50px;
+  min-width: 1500px; 
+}
+
+td {
+  min-width: 50px;
+}
+
+td ion-input {
+  border-width: 1px;
+  border-style: solid;
+}
+
+td.rightwall {
+  border-right-style: solid;
+}
+
+.bottomwall {
+  border-bottom-style: solid;
+}
