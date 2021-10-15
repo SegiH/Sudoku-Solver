@@ -1,6 +1,5 @@
 // To Do:
-// You cannot scroll on mobile
-// You cannot hover over a cell to see the possibles on mobile
+// You cannot scroll left & right on mobile
 
 import { Component } from '@angular/core';
 
@@ -10,8 +9,10 @@ import { Component } from '@angular/core';
      styleUrls: ['home.page.scss'],
 })
 export class HomePage {
+     autoReanalyze = false;
      demoMode = false;
      readonly gridSize = 9;
+     hasData = false;
      gridValues : any = [];
 
      constructor() {
@@ -20,25 +21,29 @@ export class HomePage {
 
      analyzeGrid() {
           // Validate that at least 1 cell is filled in
-          let hasData = false;
+          this.hasData = false;
           let possiblesChanged = false;
 
           // Validate that the grid has at least 1 cell filled in
           for (let rowCounter=0;rowCounter<this.gridSize;rowCounter++) {
                for (let columnCounter=0;columnCounter<this.gridSize;columnCounter++) {
                     if (this.gridValues[rowCounter][columnCounter][0] != "") {
-                         hasData=true;
+                         console.log("rowCounter="+rowCounter+" columnCounter="+columnCounter+" and value=*"+this.gridValues[rowCounter][columnCounter][2] + "*")
+                         if (typeof this.gridValues[rowCounter][columnCounter][2] == 'undefined')
+                              this.gridValues[rowCounter][columnCounter][2]="userAdded"; // When the user clicks on Analyze, the user entered fields will become disabled
+
+                         this.hasData=true;
                     }
                }
           }
      
-          if (hasData == false) {
+          if (this.hasData == false) {
                alert("Please enter the numbers you have before trying to analyze the Sudoku grid");
                return;
           }
 
           for (let rowCounter=0;rowCounter<this.gridSize;rowCounter++) {
-               for (let columnCounter=0;columnCounter<this.gridSize;columnCounter++) {
+               for (let columnCounter=0;columnCounter<this.gridSize;columnCounter++) {                    
                     if (this.gridValues[rowCounter][columnCounter][0] == "") {
                          let rowPossibles : any = [9];
 
@@ -107,19 +112,16 @@ export class HomePage {
 
                          currentPossibles=currentPossibles.trim();
 
-                         if (currentPossibles.length > 1) { // Changes to the title property of ion-input do not propogate down to the input element so I manipulate the title property of input instead
-                              if (document.getElementsByClassName("Item" + rowCounter + columnCounter)[0].childNodes[0]["title"] != currentPossibles)
+                         if (currentPossibles.length > 1) {
+                              if (this.gridValues[rowCounter][columnCounter][1].length != rowPossibles.length)
                                    possiblesChanged=true;
 
-                              document.getElementsByClassName("Item" + rowCounter + columnCounter)[0].childNodes[0]["title"]=currentPossibles;
-                              document.getElementsByClassName("Item" + rowCounter + columnCounter)[0].childNodes[0]["style"].color="black";
-                              document.getElementsByClassName("Item" + rowCounter + columnCounter)[0].childNodes[0]["style"].fontWeight="normal";
-                              document.getElementsByClassName("Item" + rowCounter + columnCounter)[0].childNodes[0]["disabled"]=false;
-                         } else if (currentPossibles != "") {
+                              this.gridValues[rowCounter][columnCounter][1]=rowPossibles;
+                         } else {
+                              possiblesChanged=true;
                               this.gridValues[rowCounter][columnCounter][0]=currentPossibles;
-                              document.getElementsByClassName("Item" + rowCounter + columnCounter)[0].childNodes[0]["style"].color="red";
-                              document.getElementsByClassName("Item" + rowCounter + columnCounter)[0].childNodes[0]["style"].fontWeight="bold";
-                              document.getElementsByClassName("Item" + rowCounter + columnCounter)[0].childNodes[0]["disabled"]=true;
+                              this.gridValues[rowCounter][columnCounter][1]=[];
+                              this.gridValues[rowCounter][columnCounter][2]="computerAdded";
                          }
                     }
                }
@@ -142,22 +144,26 @@ export class HomePage {
                }, 500);
           } else if (possiblesChanged == false) {
                alert("There are no more possible solutions for this Sudoku grid");
-          }
+          } else if (this.autoReanalyze)
+               this.analyzeGrid();
      }
 
      demoModeChanged() {
           if (this.demoMode == true) {
                alert("The Sudoku grid will be partially filled in. Click on the analyze button to analyze the grid. Hovering over a square will show the possible choices for that square. You can click on analyze until this application solves the puzzle or cannot find any more possible answers")
+               this.hasData=true;
                this.loadDummyData();
           } else {
+               this.hasData=false;
                this.initGrid();               
           }
      }
 
-     getItemClass(rowIndex,columnIndex) {
-          const className=`Item${rowIndex}${columnIndex}` 
-
-          return className
+     getItemClass(index,tag) {
+          if (tag === "tr")
+               return "row" + ((index+1) % 3 === 0 && index < 8 ? ' bottomwall' : '');
+          else if (tag == "td") 
+               return "cell" + ((index+1) % 3 === 0 && index < 8 ? ' rightwall' : '');
      }
 
      initGrid() {
@@ -165,21 +171,7 @@ export class HomePage {
           this.gridValues = [];
 
           for (let x=0;x<this.gridSize;x++) {
-               this.gridValues.push([["",""],["",""],["",""],["",""],["",""],["",""],["",""],["",""],["",""]]);
-          }
-
-          // Reset possibles
-          for (let rowCounter=0;rowCounter<this.gridSize;rowCounter++) {
-               for (let columnCounter=0;columnCounter<this.gridSize;columnCounter++) {
-                    let currentItem=document.getElementsByClassName("Item" + rowCounter + columnCounter);
-
-                    if (currentItem .length > 0) {
-                         currentItem[0].childNodes[0]["title"]="";
-                         currentItem[0].childNodes[0]["style"].color="black";
-                         currentItem[0].childNodes[0]["style"].fontWeight="normal";
-                         currentItem[0].childNodes[0]["disabled"]=false;
-                    }
-               }
+               this.gridValues.push([["",[]],["",[]],["",[]],["",[]],["",[]],["",[]],["",[]],["",[]],["",[]]]);
           }
      }
 

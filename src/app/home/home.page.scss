@@ -1,31 +1,63 @@
 .demoModeDiv {
+  display: inherit;
+}
+
+.autoReanalyzeDiv {
      display: inherit;
 }
 
-table {
-   width: 300px;
-   border-width: 1px;
-   border-style: solid;
+table.grid {
+     width: 300px;
+     border-width: 1px;
+     border-style: solid;
+     border-collapse: collapse;
+     border-spacing: 0px;
+  
 }
 
-tr {  
-  height: 50px;
-  min-width: 1500px; 
+ion-content {
+     overflow: auto;
+}
+tr.row {  
+     height: 50px;
+     min-width: 1500px; 
 }
 
-td {
-  min-width: 50px;
+td.cell {
+     min-width: 50px;
 }
 
-td ion-input {
-  border-width: 1px;
-  border-style: solid;
+td.cell ion-input {
+     border-width: 1px;
+     border-style: solid;
 }
 
 td.rightwall {
-  border-right-style: solid;
+     border-right-style: solid;
 }
 
 .bottomwall {
-  border-bottom-style: solid;
+     border-bottom-style: solid;
+}
+
+table.possibleGrid {
+     border-width: 1px;
+     border-style: solid;
+     border-collapse: collapse;
+     border-spacing: 0px;
+}
+
+td.possibleCell {
+     border-width: 1px;
+     border-style: solid;
+}
+
+div.possibleItem {
+     font-size: 7px;
+     font-weight: bold;
+}
+
+ion-input.computerAdded {
+     font-weight: bold;
+     color: red;
 }
