@@ -1,4 +1,4 @@
-package io.ionic.starter;
+package com.segihovav.sudokusolver;
 
 import com.getcapacitor.BridgeActivity;
 
