@@ -1,0 +1,69 @@
+.autoReanalyzeDiv {
+     display: inherit;
+}
+
+.bottomwall {
+     border-bottom-style: solid;
+}
+
+.demoModeDiv {
+     display: inherit;
+}
+
+#parentDiv {
+     width: 100%;
+     overflow: auto;
+}
+
+div.possibleItem {
+     font-size: 7px;
+     font-weight: bold;
+}
+
+ion-content {
+     overflow: auto;
+}
+
+ion-input.computerAdded {
+     font-weight: bold;
+     color: red;
+}
+
+table.grid {
+     width: 300px;
+     border-width: 1px;
+     border-style: solid;
+     border-collapse: collapse;
+     border-spacing: 0px;
+  
+}
+
+table.possibleGrid {
+     border-width: 1px;
+     border-style: solid;
+     border-collapse: collapse;
+     border-spacing: 0px;
+}
+
+td.cell {
+     min-width: 50px;
+}
+
+td.cell ion-input {
+     border-width: 1px;
+     border-style: solid;
+}
+
+td.possibleCell {
+     border-width: 1px;
+     border-style: solid;
+}
+
+td.rightwall {
+     border-right-style: solid;
+}
+
+tr.row {  
+     height: 50px;
+     min-width: 1500px; 
+}

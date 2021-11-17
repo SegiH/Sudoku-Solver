@@ -1,14 +1,11 @@
-// To Do:
-// You cannot scroll left & right on mobile
-
 import { Component } from '@angular/core';
 
 @Component({
-     selector: 'app-home',
-     templateUrl: 'home.page.html',
-     styleUrls: ['home.page.scss'],
+     selector: 'app-sudokusolver',
+     templateUrl: 'sudoku-solver.page.html',
+     styleUrls: ['sudoku-solver.page.scss'],
 })
-export class HomePage {
+export class SudokuSolverPage {
      autoReanalyze = false;
      demoMode = false;
      readonly gridSize = 9;

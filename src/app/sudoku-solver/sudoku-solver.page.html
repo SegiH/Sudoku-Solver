@@ -1,0 +1,39 @@
+<ion-header [translucent]="true">
+     <ion-toolbar>
+          <ion-list>
+               <ion-item>
+                    <ion-title>Sudoku Solver</ion-title>
+                    <span class="demoModeDiv">
+                         Demo<ion-toggle [(ngModel)]="demoMode" (ionChange)="demoModeChanged()"></ion-toggle>
+                    </span>
+
+                    <span class="autoReanalyzeDiv">
+                         Auto<ion-toggle [(ngModel)]="autoReanalyze"></ion-toggle>
+                    </span>
+               </ion-item>
+          </ion-list>     
+     </ion-toolbar>
+
+</ion-header>
+
+<ion-content [fullscreen]="true">
+     <div id="parentDiv">
+          <table class="grid">
+               <tr *ngFor="let row of numSequence(9); trackBy: trackByFn; let rowIndex = index" [ngClass]="getItemClass(rowIndex,'tr')">
+                    <td *ngFor="let column of numSequence(9); trackBy: trackByFn; let columnIndex = index" [ngClass]="getItemClass(columnIndex,'td')">                    
+                         <ion-input [ngClass]="{'computerAdded' : gridValues[rowIndex][columnIndex][2]=='computerAdded'}" [disabled]="gridValues[rowIndex][columnIndex][2]=='userAdded' || gridValues[rowIndex][columnIndex][2]=='computerAdded'" [(ngModel)]="gridValues[rowIndex][columnIndex][0]" [value]="gridValues[rowIndex][columnIndex][0]" (ionChange)="keyPress($event)" inputMode="numeric" maxlength="1" size="1">
+                              <table *ngIf="hasData && gridValues[rowIndex][columnIndex][0] == '' && gridValues[rowIndex][columnIndex][1].length > 0" class="possibleGrid">
+                                   <tr *ngFor="let rowPossible of numSequence(3); trackBy: trackByFn; let rowPossibleIndex = index" class="possibleRow">
+                                        <td *ngFor="let columnPossible of numSequence(3); trackBy: trackByFn; let columnPossibleIndex = index" class="possibleCell">
+                                             <div class="possibleItem">{{(gridValues[rowIndex][columnIndex][1][rowPossibleIndex*3+columnPossibleIndex] != '' ? gridValues[rowIndex][columnIndex][1][rowPossibleIndex*3+columnPossibleIndex] : '*')}}</div>
+                                        </td>
+                                   </tr>
+                              </table>
+                         </ion-input>
+                    </td>
+               </tr>
+          </table>
+     </div>
+
+     <ion-button class="goButton" color="primary" (click)="analyzeGrid()">Analyze</ion-button>
+</ion-content>

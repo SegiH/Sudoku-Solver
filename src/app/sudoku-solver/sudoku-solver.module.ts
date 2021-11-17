@@ -2,9 +2,9 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { IonicModule } from '@ionic/angular';
 import { FormsModule } from '@angular/forms';
-import { HomePage } from './home.page';
+import { SudokuSolverPage } from './sudoku-solver.page';
 
-import { HomePageRoutingModule } from './home-routing.module';
+import { SudokuSolverPageRoutingModule } from './sudoku-solver-routing.module';
 
 
 @NgModule({
@@ -12,8 +12,8 @@ import { HomePageRoutingModule } from './home-routing.module';
     CommonModule,
     FormsModule,
     IonicModule,
-    HomePageRoutingModule
+    SudokuSolverPageRoutingModule
   ],
-  declarations: [HomePage]
+  declarations: [SudokuSolverPage]
 })
-export class HomePageModule {}
+export class SudokuSolverPageModule {}

@@ -3,13 +3,8 @@ import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 
 const routes: Routes = [
   {
-    path: 'home',
-    redirectTo: '',
-    pathMatch: 'full'
-  },
-  {
     path: '',
-    loadChildren: () => import('./home/home.module').then( m => m.HomePageModule),
+    loadChildren: () => import('./sudoku-solver/sudoku-solver.module').then( m => m.SudokuSolverPageModule),
   },
 ];
 

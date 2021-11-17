@@ -1,5 +1,5 @@
 {
-	"appId": "com.segihovav.sudokusolver",
+	"appId": "io.ionic.starter",
 	"appName": "sudoku-solver",
 	"webDir": "www",
 	"bundledWebRuntime": false
